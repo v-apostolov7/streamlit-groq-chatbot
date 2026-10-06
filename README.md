@@ -11,7 +11,7 @@ The application features full chat persistence, session-based dialog tracking, a
 - **Blazing Fast LLM Inference**: Integrated with Groq API endpoints (`openai/gpt-oss-20b`) for near-instant responses.
 - **Interactive UI**: Responsive chat layout built with Streamlit, organizing user and assistant dialogs cleanly across viewport columns.
 - **Chat History & Session Management**:
-  - Automatically serializes conversations into JSON format (`chats/`).
+  - Chat History & Session Isolation: Automatically serializes conversations into JSON format (chats/<session_id>/), ensuring each browser session remains private and distinct.
   - Sidebar navigation allows switching between previous conversations or initializing a new session at any time.
 - **Dual Configuration Support**: Fully configured to load environment secrets from `.env` locally or via Streamlit Community Cloud (`st.secrets`).
 - **Clean Modular Architecture**: Separation of concerns between API communication, history management, and interface components.
