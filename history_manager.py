@@ -3,49 +3,49 @@ import os
 from datetime import datetime
 
 
+def get_user_folder(session_id):
+    folder_path = os.path.join("chats", session_id)
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path, exist_ok=True)
+    return folder_path
+
+
 def generate_chat_name_from_path(file_path):
-    file_path_list = file_path.split('.')[0].split('_')
-    return f'{file_path_list[2]} || {file_path_list[1]}'
+    base_name = os.path.basename(file_path)
+    file_path_list = base_name.split(".")[0].split("_")
+    if len(file_path_list) >= 3:
+        return f"{file_path_list[2]} || {file_path_list[1]}"
+    return base_name
 
 
-def get_timestamp_filename_path():
+def get_timestamp_filename_path(session_id):
+    user_folder = get_user_folder(session_id)
     time_now = datetime.now()
-    string_time_now = time_now.strftime('%Y-%m-%d_%H-%M-%S')
-    timestamp_file_name = os.path.join(f'chats', f'chat_{string_time_now}.json')
-    return timestamp_file_name
+    string_time_now = time_now.strftime("%Y-%m-%d_%H-%M-%S")
+    return os.path.join(user_folder, f"chat_{string_time_now}.json")
 
 
 def save_chat(chat_history, filename):
-    with open(filename, 'w', encoding='utf-8') as json_file:
-        json.dump(chat_history, json_file, ensure_ascii=False, indent=4)
+    if filename:
+        folder = os.path.dirname(filename)
+        if folder and not os.path.exists(folder):
+            os.makedirs(folder, exist_ok=True)
+        with open(filename, "w", encoding="utf-8") as json_file:
+            json.dump(chat_history, json_file, ensure_ascii=False, indent=4)
 
 
 def load_chat(filename):
-    if filename:
-        if os.path.exists(filename):
-            with open(filename, 'r', encoding='utf-8') as json_file:
-                file_content = json.load(json_file)  # Подаваш обекта json_file
-                return file_content
+    if filename and os.path.exists(filename):
+        with open(filename, "r", encoding="utf-8") as json_file:
+            return json.load(json_file)
     return []
 
 
 def delete_chat(filename):
-    if os.path.exists(filename):
+    if filename and os.path.exists(filename):
         try:
-            file_path = os.path.abspath(filename)
-            os.remove(file_path)
-            return 'File deleted successfully!'
+            os.remove(os.path.abspath(filename))
+            return "File deleted successfully!"
         except Exception as e:
-            return f'Deleting failed because of {e.__class__.__name__}:\n{e}'
-    return 'File not found'
-
-
-def list_available_chats():
-    if os.path.exists('chats'):
-        list_with_chats = [f for f in os.listdir('chats') if f.endswith('.json')]
-        if list_with_chats:
-            result = '\n'.join(list_with_chats)
-            return result
-    else:
-        os.mkdir("chats")
-    return 'No chats'
+            return f"Deleting failed because of {e.__class__.__name__}:\n{e}"
+    return "File not found"

@@ -1,5 +1,4 @@
 import streamlit as st
-import os
 import history_manager
 from get_ai_response import get_ai_response
 
@@ -29,6 +28,10 @@ def display_chat(file_session_state, chat_history, api_key, model, api_url):
                             st.write(msg["content"])
 
         if prompt := st.chat_input("Напиши съобщение..."):
+
+            if not file_session_state.active_file:
+                file_session_state.active_file = history_manager.get_timestamp_filename_path(file_session_state.session_id)
+
             user_col1, user_col2 = st.columns([1, 1])
             with user_col1:
                 st.empty()
