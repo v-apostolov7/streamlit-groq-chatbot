@@ -83,4 +83,4 @@ The application will launch locally at `http://localhost:8501`.
 ---
 
 ## Live Demo
-Check out the live web app here: [Launch App on Streamlit Cloud](https://groq-chat-bot-va.streamlit.app)
+Check out the live web app here: [Launch App on Streamlit Cloud](https://app-groq-chatbot-3ytyecsi3r722dq7mya3x5.streamlit.app/)
