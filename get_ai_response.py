@@ -1,12 +1,10 @@
 import requests
 
 
-# === Chat Function ===
 def get_ai_response(user_input, chat_history, api_key, model, api_url):
-    # chat_history.append({"role": "user", "content": user_input})
 
     headers = {
-        "Authorization": f"Bearer {api_key}",  # TODO: Use your API key
+        "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json"
     }
 
@@ -16,11 +14,10 @@ def get_ai_response(user_input, chat_history, api_key, model, api_url):
     }
 
     try:
-        # Send the POST request to the Groq API
-        response = requests.post(api_url, headers=headers, json=data)  # TODO: Complete this line
-        response.raise_for_status()  # Ensure no HTTP errors
-        result = response.json()  # TODO: Extract JSON content
+        response = requests.post(api_url, headers=headers, json=data)
+        response.raise_for_status()
+        result = response.json()
 
-        return result["choices"][0]["message"]["content"]  # TODO: Get AI's message
+        return result["choices"][0]["message"]["content"]
     except Exception as e:
         return f"Error: {e}"

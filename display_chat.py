@@ -13,20 +13,18 @@ def display_chat(file_session_state, chat_history, api_key, model, api_url):
         with chat_container:
             for msg in file_session_state.current_chat_content:
                 col1, col2 = st.columns([1, 1])
-                # Създаваме две колони с различно съотношение
-                # [1, 4] означава, че дясната е 4 пъти по-широка (за съобщението)
 
                 if msg["role"] == "assistant":
-                    with col1:  # Асистентът е ВЛЯВО
+                    with col1:
                         with st.chat_message("assistant"):
                             st.write(msg["content"])
-                    with col2:  # Дясната колона остава празна
+                    with col2:
                         st.empty()
-                elif msg["role"] == "user":  # Потребителят е ВДЯСНО
-                    with col1:  # Лявата колона остава празна
+                elif msg["role"] == "user":
+                    with col1:
                         st.empty()
                     with col2:
-                        # Използваме CSS, за да подравним аватара вдясно (ако е възможно)
+
                         with st.chat_message("user"):
                             st.write(msg["content"])
 
