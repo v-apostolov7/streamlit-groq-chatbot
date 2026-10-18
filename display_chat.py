@@ -45,7 +45,7 @@ def display_chat(file_session_state, chat_history, api_key, model, api_url):
                 with st.chat_message("assistant"):
                     response_placeholder = st.empty()
                     with st.spinner("Мисли..."):
-                        reply = get_ai_response(prompt, chat_history, api_key, model, api_url)
+                        reply = get_ai_response(prompt, chat_history, api_key, model, api_url, file_session_state.vector_db)
                 response_placeholder.write(reply)
             with assistant_col2:
                 st.empty()

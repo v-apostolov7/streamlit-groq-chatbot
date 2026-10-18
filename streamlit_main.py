@@ -25,6 +25,12 @@ if "current_chat_content" not in st.session_state:
 if "active_file" not in st.session_state:
     st.session_state.active_file = None
 
+if "vector_db" not in st.session_state:
+    st.session_state.vector_db = None
+
+if "uploaded_pdf_name" not in st.session_state:
+    st.session_state.uploaded_pdf_name = None
+
 
 load_sidebar_with_chats(st.session_state)
 
