@@ -48,9 +48,9 @@ The application features full chat persistence, session-based dialog tracking, a
 
 ### 1. Clone the Repository
 
-git clone https://github.com/<your-username>/<your-repo-name>.git
+git clone https://github.com/v-apostolov7/streamlit-groq-chatbot.git
 
-cd <your-repo-name>
+cd streamlit-groq-chatbot
 
 ### 2. Create and Activate a Virtual Environment
 
