@@ -12,7 +12,7 @@ except Exception:
     API_KEY = os.getenv('GROQ_API_KEY')
 
 API_URL = "https://api.groq.com/openai/v1/chat/completions"
-MODEL = "llama-3.3-70b-versatile"
+MODEL = "openai/gpt-oss-20b"
 
 st.set_page_config(layout="wide")
 
