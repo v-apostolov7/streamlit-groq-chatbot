@@ -9,10 +9,12 @@ def get_ai_response(user_input, chat_history, api_key, model, api_url, vector_db
         "Content-Type": "application/json"
     }
 
-
     system_prompt = (
         "You are a helpful and precise AI assistant. "
-        "Provide clear, structured, and accurate answers."
+        "Provide clear, structured, and accurate answers. "
+        "IMPORTANT LANGUAGE RULE: Always respond strictly in the exact same language used by the user "
+        "(e.g., if the user writes in Bulgarian, translate any quotes and respond 100% in standard Bulgarian; "
+        "NEVER mix in Russian words or sentences)."
     )
 
     if vector_db is not None:
