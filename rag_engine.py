@@ -24,13 +24,15 @@ def create_vector_db_from_pdf(uploaded_file):
 
         # 2. Chunking: Разделяме текста на парчета по 800 символа със застъпване от 150 символа
         text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=800,
-            chunk_overlap=150
+            chunk_size=1200,
+            chunk_overlap=250
         )
         chunks = text_splitter.split_documents(documents)
 
         # 3. Embeddings: Използваме безплатен локален модел от HuggingFace за превръщане на текст в числа
-        embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+        embeddings = HuggingFaceEmbeddings(
+            model_name = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+        )
 
         # 4. Vector Database: Създаваме FAISS векторна база в паметта
         vector_db = FAISS.from_documents(chunks, embeddings)
@@ -42,7 +44,7 @@ def create_vector_db_from_pdf(uploaded_file):
             os.remove(tmp_file_path)
 
 
-def get_relevant_context(vector_db, user_query, k=3):
+def get_relevant_context(vector_db, user_query, k=6):
     """
     Прави Semantic Search (търсене по смисъл) във векторната база
     и връща най-подходящите k (3) пасажа от документа.
@@ -54,5 +56,6 @@ def get_relevant_context(vector_db, user_query, k=3):
     relevant_docs = vector_db.similarity_search(user_query, k=k)
 
     # Събираме намерените парчета в един общ текст
-    context = "\n\n---\n\n".join([doc.page_content for doc in relevant_docs])
+    context = "\n\n---\n\n".join(
+        [f"[Страница {doc.metadata.get('page', 0) + 1}]:\n{doc.page_content}" for doc in relevant_docs])
     return context

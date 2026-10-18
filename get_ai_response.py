@@ -18,7 +18,7 @@ def get_ai_response(user_input, chat_history, api_key, model, api_url, vector_db
     )
 
     if vector_db is not None:
-        context = get_relevant_context(vector_db, user_input, k=3)
+        context = get_relevant_context(vector_db, user_input, k=6)
         if context:
             system_prompt += (
                 "\n\nUse the following retrieved document context to answer the user's question. "
