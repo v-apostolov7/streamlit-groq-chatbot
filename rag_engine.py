@@ -47,7 +47,7 @@ def create_vector_db_from_pdf(uploaded_file):
 def get_relevant_context(vector_db, user_query, k=6):
     """
     Прави Semantic Search (търсене по смисъл) във векторната база
-    и връща най-подходящите k (3) пасажа от документа.
+    и връща най-подходящите k (6) пасажа от документа.
     """
     if vector_db is None:
         return ""
