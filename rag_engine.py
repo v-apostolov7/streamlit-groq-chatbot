@@ -22,7 +22,7 @@ def create_vector_db_from_pdf(uploaded_file):
         loader = PyPDFLoader(tmp_file_path)
         documents = loader.load()
 
-        # 2. Chunking: Разделяме текста на парчета по 800 символа със застъпване от 150 символа
+        # 2. Chunking: Разделяме текста на парчета по 1200 символа със застъпване от 150 символа
         text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=1200,
             chunk_overlap=250
@@ -52,7 +52,7 @@ def get_relevant_context(vector_db, user_query, k=6):
     if vector_db is None:
         return ""
 
-    # Търсим 3-те най-близки по смисъл парчета текст до въпроса на потребителя
+    # Търсим 6-те най-близки по смисъл парчета текст до въпроса на потребителя
     relevant_docs = vector_db.similarity_search(user_query, k=k)
 
     # Събираме намерените парчета в един общ текст
